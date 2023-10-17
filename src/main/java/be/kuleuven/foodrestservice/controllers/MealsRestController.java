@@ -56,6 +56,18 @@ public class MealsRestController {
                 linkTo(methodOn(MealsRestController.class).getMeals()).withSelfRel());
     }
 
+    @GetMapping("/rest/meals/largest")
+    EntityModel<Meal> getLargestMeal(){
+        Meal largest = mealsRepository.getLargestMeal();
+        return mealToEntityModel(largest.getId(), largest);
+    }
+
+    @GetMapping("/rest/meals/cheapest")
+    EntityModel<Meal> getCheapestMeal(){
+        Meal cheapest = mealsRepository.getCheapestMeal();
+        return mealToEntityModel(cheapest.getId(), cheapest);
+    }
+
     private EntityModel<Meal> mealToEntityModel(String id, Meal meal) {
         return EntityModel.of(meal,
                 linkTo(methodOn(MealsRestController.class).getMealById(id)).withSelfRel(),
