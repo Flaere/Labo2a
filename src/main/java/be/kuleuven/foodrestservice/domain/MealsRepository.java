@@ -74,4 +74,14 @@ public class MealsRepository {
         }
         return cheapest;
     }
+
+    public String deleteMeal(String id) {
+        String code = "404";
+        Assert.notNull(id, "The meal id must not be null");
+        if (meals.containsKey(id)) {
+            meals.remove(id);
+            code = "200";
+        }
+        return code;
+    }
 }

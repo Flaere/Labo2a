@@ -56,6 +56,14 @@ public class MealsRestController {
                 linkTo(methodOn(MealsRestController.class).getMeals()).withSelfRel());
     }
 
+    @GetMapping("/rest/meals/delete/{id}")
+    ResponseEntity<?> deleteMealById(
+            @Parameter(description = "Id of the meal", schema = @Schema(format = "uuid", type = "string"))
+            @PathVariable String id) {
+        String code = mealsRepository.deleteMeal(id);
+        return ResponseEntity.ok(code);
+    }  
+      
     @GetMapping("/rest/meals/largest")
     EntityModel<Meal> getLargestMeal(){
         Meal largest = mealsRepository.getLargestMeal();
