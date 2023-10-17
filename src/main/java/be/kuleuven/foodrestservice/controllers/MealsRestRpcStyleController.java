@@ -4,7 +4,6 @@ import be.kuleuven.foodrestservice.domain.Meal;
 import be.kuleuven.foodrestservice.domain.MealsRepository;
 import be.kuleuven.foodrestservice.exceptions.MealNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -37,4 +36,9 @@ public class MealsRestRpcStyleController {
 
     @GetMapping("/restrpc/meals/cheapest")
     Meal getCheapestMeal(){ return mealsRepository.getCheapestMeal();}
+
+    @GetMapping("/restrpc/meals/delete/{id}")
+    String deleteMeals(@PathVariable String id) {
+        return mealsRepository.deleteMeal(id);
+    }
 }

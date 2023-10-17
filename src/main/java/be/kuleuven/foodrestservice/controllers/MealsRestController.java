@@ -56,6 +56,14 @@ public class MealsRestController {
                 linkTo(methodOn(MealsRestController.class).getMeals()).withSelfRel());
     }
 
+    @GetMapping("/rest/meals/delete/{id}")
+    ResponseEntity<?> deleteMealById(
+            @Parameter(description = "Id of the meal", schema = @Schema(format = "uuid", type = "string"))
+            @PathVariable String id) {
+        String code = mealsRepository.deleteMeal(id);
+        return ResponseEntity.ok(code);
+    }
+
     private EntityModel<Meal> mealToEntityModel(String id, Meal meal) {
         return EntityModel.of(meal,
                 linkTo(methodOn(MealsRestController.class).getMealById(id)).withSelfRel(),
