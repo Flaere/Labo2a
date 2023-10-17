@@ -62,6 +62,18 @@ public class MealsRestController {
             @PathVariable String id) {
         String code = mealsRepository.deleteMeal(id);
         return ResponseEntity.ok(code);
+    }  
+      
+    @GetMapping("/rest/meals/largest")
+    EntityModel<Meal> getLargestMeal(){
+        Meal largest = mealsRepository.getLargestMeal();
+        return mealToEntityModel(largest.getId(), largest);
+    }
+
+    @GetMapping("/rest/meals/cheapest")
+    EntityModel<Meal> getCheapestMeal(){
+        Meal cheapest = mealsRepository.getCheapestMeal();
+        return mealToEntityModel(cheapest.getId(), cheapest);
     }
 
     private EntityModel<Meal> mealToEntityModel(String id, Meal meal) {
