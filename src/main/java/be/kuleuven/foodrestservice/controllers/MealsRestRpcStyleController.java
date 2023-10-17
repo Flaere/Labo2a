@@ -38,7 +38,7 @@ public class MealsRestRpcStyleController {
     Meal getCheapestMeal(){ return mealsRepository.getCheapestMeal();}
 
     @GetMapping("/restrpc/meals/delete/{id}")
-    String deleteMeals(@PathVariable String id) {
+    String deleteMeal(@PathVariable String id) {
         return mealsRepository.deleteMeal(id);
     }
 }
