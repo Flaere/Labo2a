@@ -54,4 +54,24 @@ public class MealsRepository {
     public Collection<Meal> getAllMeal() {
         return meals.values();
     }
+
+    public Meal getLargestMeal(){
+        Meal largest = null;
+        for (Meal m : meals.values()){
+            if(largest == null || m.getKcal() > largest.getKcal()){
+                largest = m;
+            }
+        }
+        return largest;
+    }
+
+    public Meal getCheapestMeal(){
+        Meal cheapest = null;
+        for (Meal m : meals.values()){
+            if(cheapest == null || m.getPrice() < cheapest.getPrice()){
+                cheapest = m;
+            }
+        }
+        return cheapest;
+    }
 }
