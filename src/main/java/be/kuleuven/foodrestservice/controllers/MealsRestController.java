@@ -14,6 +14,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.*;
 
@@ -74,6 +75,13 @@ public class MealsRestController {
     EntityModel<Meal> getCheapestMeal(){
         Meal cheapest = mealsRepository.getCheapestMeal();
         return mealToEntityModel(cheapest.getId(), cheapest);
+    }
+
+    @PostMapping("/rest/meals")
+    ResponseEntity<Meal> addMeal(@RequestBody Meal m){
+        mealsRepository.addMeal(m);
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(m).toUri()).build();
+
     }
 
     private EntityModel<Meal> mealToEntityModel(String id, Meal meal) {

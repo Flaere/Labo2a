@@ -84,4 +84,8 @@ public class MealsRepository {
         }
         return code;
     }
+
+    public void addMeal(Meal m){
+        meals.put(m.getId(), m);
+    }
 }
