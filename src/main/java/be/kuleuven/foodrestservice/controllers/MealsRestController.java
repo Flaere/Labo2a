@@ -89,6 +89,18 @@ public class MealsRestController {
 
     }
 
+    @PutMapping("/rest/meals/{id}")
+    ResponseEntity<Meal> updateMeal(@RequestBody Meal m,   @PathVariable String id){
+        Meal current = mealsRepository.findMeal(id).orElse(null);
+        if (current != null && Objects.equals(id, m.getId())){
+            mealsRepository.deleteMeal(m.getId());
+            mealsRepository.addMeal(m);
+            return ResponseEntity.ok().build();
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     private EntityModel<Meal> mealToEntityModel(String id, Meal meal) {
         return EntityModel.of(meal,
                 linkTo(methodOn(MealsRestController.class).getMealById(id)).withSelfRel(),
