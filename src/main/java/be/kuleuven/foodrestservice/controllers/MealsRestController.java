@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.*;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
@@ -79,8 +80,12 @@ public class MealsRestController {
 
     @PostMapping("/rest/meals")
     ResponseEntity<Meal> addMeal(@RequestBody Meal m){
-        mealsRepository.addMeal(m);
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(m).toUri()).build();
+        if (m.getId() != null){
+            mealsRepository.addMeal(m);
+            return ResponseEntity.created(URI.create("/rest/meals/"+m.getId())).build();
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
 
     }
 
